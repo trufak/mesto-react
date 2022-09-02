@@ -3,12 +3,15 @@ import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
+import ImagePopup from './ImagePopup';
 
 function App() {
 
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState({});
+  const [isCardPopupOpen, setIsCardPopupOpen] = React.useState(false);
 
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(true);
@@ -22,12 +25,19 @@ function App() {
     setIsAddPlacePopupOpen(true);
   };
 
+  const handleCardClick = (card) => {
+    setSelectedCard(card);
+    setIsCardPopupOpen(true);
+  };
+
   const closeAllPopups = (e) => {
     if (e.target.classList.contains('popup') || e.target.classList.contains('close-button'))
     {
       isEditAvatarPopupOpen && setIsEditAvatarPopupOpen(false);
       isEditProfilePopupOpen && setIsEditProfilePopupOpen(false);
       isAddPlacePopupOpen && setIsAddPlacePopupOpen(false);
+      isCardPopupOpen && setIsCardPopupOpen(false);
+      setSelectedCard({});
     }
   };
 
@@ -37,16 +47,12 @@ function App() {
         <Header />
         <Main onEditAvatar = {handleEditAvatarClick}
           onEditProfile = {handleEditProfileClick}
-          onAddPlace = {handleAddPlaceClick} />
+          onAddPlace = {handleAddPlaceClick}
+          onCardClick = {handleCardClick}/>
         <Footer />
       </div>
-      <div className="popup popup_card">
-        <div className="popup__card-container">
-          <button type="button" className="close-button close-button_popup" aria-label="Закрыть"></button>
-          <img className="popup__mask" src="#" alt="#"/>
-          <h2 className="popup__caption"></h2>
-        </div>
-      </div>
+      <ImagePopup card = {selectedCard} onClose = {closeAllPopups}
+      isOpen = {isCardPopupOpen}/>
       <PopupWithForm name = "popup_edit-profile" title = "Редактировать профиль"
         isOpen = {isEditProfilePopupOpen} onClose = {closeAllPopups}>
         <ul className="popup__inputs">
