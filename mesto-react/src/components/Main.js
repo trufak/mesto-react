@@ -1,5 +1,6 @@
 import React from 'react';
-import api from '../utils/api'
+import api from '../utils/api';
+import Card from './Card';
 
 function Main(props) {
   const [userName, setUserName] = React.useState('');
@@ -26,17 +27,7 @@ function Main(props) {
     .then(initialCards=>{
       setCards(initialCards.map(card=>{
         return (
-          <li className="elements__item">
-          <article className="element">
-            <img className="element__mask" src={card.link} alt={card.name} />
-            <button type="button" className="element__delete" aria-label="Удалить место"></button>
-            <div className = "element__like-container">
-              <button type="button" className="element__like" aria-label="Поставить лайк"></button>
-              <p className="element__like-count">{card.likes.length}</p>
-            </div>
-            <h2 className="element__caption">{card.name}</h2>
-          </article>
-        </li>
+          <Card key={card._id} card={card} />
         );
       }));
     })
