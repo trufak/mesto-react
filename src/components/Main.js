@@ -25,12 +25,7 @@ function Main(props) {
   React.useEffect(()=>{
     api.getInitialCards()
     .then(initialCards=>{
-      setCards(initialCards.map(card=>{
-        return (
-          <Card key={card._id} card={card} onCardClick={props.onCardClick}/>
-        );
-      }));
-    })
+      setCards(initialCards)})
     .catch(err => {
       console.log(err);
     });
@@ -53,7 +48,10 @@ function Main(props) {
       </section>
       <section>
         <ul className="elements">
-          {cards}
+          {cards.map(card=>{
+            return (
+              <Card key={card._id} card={card} onCardClick={props.onCardClick}/>)
+          })}
         </ul>
       </section>
     </main>
