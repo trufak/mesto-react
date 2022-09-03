@@ -34,17 +34,24 @@ function Main(props) {
   return (
     <main>
       <section className="profile">
-          <button className="profile__edit-avatar-button" onClick = {props.onEditAvatar}
-          style={{ backgroundImage: `url(${userAvatar})` }}>
-          </button>
+          <button
+            className="profile__edit-avatar-button"
+            onClick = {props.onEditAvatar}
+            style={{ backgroundImage: `url(${userAvatar})` }} />
         <div className="profile__info">
           <h1 className="profile__title">{userName}</h1>
-          <button type="button" className="profile__info-edit-button"
-          aria-label="Корректировать профиль" onClick = {props.onEditProfile}></button>
+          <button
+            type="button"
+            className="profile__info-edit-button"
+            aria-label="Корректировать профиль"
+            onClick = {props.onEditProfile}/>
           <p className="profile__subtitle">{userDescription}</p>
         </div>
-        <button type="button" className="profile__add-button" aria-label="Добавть место"
-        onClick = {props.onAddPlace}></button>
+        <button
+          type="button"
+          className="profile__add-button"
+          aria-label="Добавть место"
+          onClick = {props.onAddPlace}/>
       </section>
       <section>
         <ul className="elements">

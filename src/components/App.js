@@ -72,7 +72,7 @@ function App() {
               maxLength = "40"
               placeholder="Имя профиля"
               required />
-            <span className="popup__input-error name-profile-error"></span>
+            <span className="popup__input-error name-profile-error"/>
           </li>
           <li>
             <input
@@ -84,13 +84,12 @@ function App() {
               maxLength = "200"
               placeholder="О себе"
               required />
-            <span className="popup__input-error desc-profile-error"></span>
+            <span className="popup__input-error desc-profile-error"/>
           </li>
         </ul>
           <button
             type="submit"
-            className="popup__submit-button popup__submit-button_edit">
-            Сохранить
+            className="popup__submit-button popup__submit-button_edit">Сохранить
           </button>
       </PopupWithForm>
       <PopupWithForm
@@ -107,13 +106,12 @@ function App() {
               type="url"
               placeholder="Ссылка на изображение"
               required />
-            <span className="popup__input-error link-avatar-error"></span>
+            <span className="popup__input-error link-avatar-error"/>
           </li>
         </ul>
         <button
           type="submit"
-          className="popup__submit-button popup__submit-button_edit">
-            Сохранить
+          className="popup__submit-button popup__submit-button_edit">Сохранить
         </button>
       </PopupWithForm>
       <PopupWithForm
@@ -131,7 +129,7 @@ function App() {
               minLength = "2"
               maxLength = "30"
               required />
-            <span className="popup__input-error name-card-error"></span>
+            <span className="popup__input-error name-card-error"/>
           </li>
           <li>
             <input
@@ -141,22 +139,20 @@ function App() {
               type="url"
               placeholder="Ссылка на картинку"
               required />
-            <span className="popup__input-error link-card-error"></span>
+            <span className="popup__input-error link-card-error"/>
           </li>
         </ul>
         <button
           type="submit"
-          className="popup__submit-button popup__submit-button_add">
-            Создать
-          </button>
+          className="popup__submit-button popup__submit-button_add">Создать
+        </button>
       </PopupWithForm>
       <PopupWithForm
         name = "popup_delete-card"
         title = "Вы уверены?">
         <button
           type="submit"
-          className="popup__submit-button popup__submit-button_delete">
-            Да
+          className="popup__submit-button popup__submit-button_delete">Да
         </button>
       </PopupWithForm>
     </div>
