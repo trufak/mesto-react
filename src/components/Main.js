@@ -1,25 +1,17 @@
 import React from 'react';
 import api from '../utils/api';
 import Card from './Card';
+import {CurrentUserContext} from '../contexts/CurrentUserContext';
 
 function Main(props) {
-  const [userName, setUserName] = React.useState('');
-  const [userDescription, setUserDescription] = React.useState('');
-  const [userAvatar, setUserAvatar] = React.useState('');
+  //States
   const [cards, setCards] = React.useState([]);
 
-  //Получение данных пользователя с сервера при монтировании
-  React.useEffect(()=>{
-    api.getUserInfo()
-    .then(userInfo=>{
-      setUserName (userInfo.name);
-      setUserDescription (userInfo.about);
-      setUserAvatar (userInfo.avatar);
-    })
-    .catch(err => {
-      console.log(err);
-    });
-  },[]);
+
+  //Hookes
+  //Подписка на контекст с данными пользователя
+  const currentUser = React.useContext(CurrentUserContext);
+
 
   //Загрузка карточек
   React.useEffect(()=>{
@@ -37,15 +29,15 @@ function Main(props) {
           <button
             className="profile__edit-avatar-button"
             onClick = {props.onEditAvatar}
-            style={{ backgroundImage: `url(${userAvatar})` }} />
+            style={{ backgroundImage: `url(${currentUser.avatar})` }} />
         <div className="profile__info">
-          <h1 className="profile__title">{userName}</h1>
+          <h1 className="profile__title">{currentUser.name}</h1>
           <button
             type="button"
             className="profile__info-edit-button"
             aria-label="Корректировать профиль"
             onClick = {props.onEditProfile}/>
-          <p className="profile__subtitle">{userDescription}</p>
+          <p className="profile__subtitle">{currentUser.about}</p>
         </div>
         <button
           type="button"
