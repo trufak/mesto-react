@@ -15,7 +15,8 @@ function Main(props) {
   React.useEffect(()=>{
     api.getInitialCards()
     .then(initialCards=>{
-      setCards(initialCards)})
+      setCards(initialCards);
+    })
     .catch(err => {
       console.log(err);
     });
@@ -24,15 +25,16 @@ function Main(props) {
   //Methods
   function handleCardLike(card) {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
-    api.changeLikeCardStatus(card._id, !isLiked)
+    api.changeLikeCardStatus(card._id, isLiked)
     .then((newCard) => {
         setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
     });
   }
+
   function handleCardDelete(card) {
     api.deleteCard(card._id)
     .then(()=>{
-      setCards(state=>state.map((c,i,arr)=>c._id === card._id && arr.splice(i,i)))
+      setCards(state=>state.filter(c=>c._id !== card._id));
     })
   }
 

@@ -1,4 +1,5 @@
 import {CurrentUserContext} from '../contexts/CurrentUserContext';
+import React from 'react';
 
 function Card (props) {
   //Hookes
@@ -8,7 +9,7 @@ function Card (props) {
   // Определяем, является ли текущий пользователь владельцем текущей карточки
   const isOwn = props.card.owner._id === currentUser._id;
   const cardDeleteButtonClassName =
-  `element__delete ${isOwn ? 'element__delete_visible' : 'card__delete_hidden'}`;
+  `element__delete ${isOwn ? 'element__delete_visible' : 'element__delete_hidden'}`;
 
   // Определяем, есть ли у карточки лайк, поставленный текущим пользователем
   const isLiked = props.card.likes.some(i => i._id === currentUser._id);
@@ -43,7 +44,7 @@ function Card (props) {
           <button type="button"
             className={cardLikeButtonClassName}
             aria-label="Поставить лайк"
-            onClick={handleClick}/>
+            onClick={handleLikeClick}/>
           <p className="element__like-count">{props.card.likes.length}</p>
         </div>
         <h2 className="element__caption">{props.card.name}</h2>

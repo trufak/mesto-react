@@ -56,7 +56,7 @@ function App() {
 
   return (
     <div className="App">
-      <CurrentUserContext.provider value={currentUser}>
+      <CurrentUserContext.Provider value={currentUser}>
         <div className="main-page">
           <Header />
           <Main
@@ -169,7 +169,7 @@ function App() {
             className="popup__submit-button popup__submit-button_delete">Да
           </button>
         </PopupWithForm>
-      </CurrentUserContext.provider>
+      </CurrentUserContext.Provider>
     </div>
   );
 }

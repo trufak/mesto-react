@@ -59,9 +59,8 @@ class Api {
   }
   //Изменение лайка карточки
   changeLikeCardStatus(cardId, isLiked) {
-    isLiked
-    ? _removeLikeCard(cardId)
-    : _addLikeCard (cardId);
+    if (isLiked) return this._removeLikeCard(cardId);
+    else return this._addLikeCard (cardId);
   }
 
 
