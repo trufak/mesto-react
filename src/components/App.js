@@ -3,6 +3,7 @@ import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
+import EditProfilePopup from './EditProfilePopup';
 import ImagePopup from './ImagePopup';
 import api from '../utils/api';
 import {CurrentUserContext} from '../contexts/CurrentUserContext';
@@ -70,42 +71,7 @@ function App() {
           card = {selectedCard}
           onClose = {closeAllPopups}
           isOpen = {isCardPopupOpen}/>
-        <PopupWithForm
-          name = "popup_edit-profile"
-          title = "Редактировать профиль"
-          isOpen = {isEditProfilePopupOpen}
-          onClose = {closeAllPopups}>
-          <ul className="popup__inputs">
-            <li>
-              <input
-                className="popup__input popup__input_name-profile"
-                id="name-profile"
-                name = "name"
-                type="text"
-                minLength = "2"
-                maxLength = "40"
-                placeholder="Имя профиля"
-                required />
-              <span className="popup__input-error name-profile-error"/>
-            </li>
-            <li>
-              <input
-                className="popup__input popup__input_desc-profile"
-                id="desc-profile"
-                name = "description"
-                type="text"
-                minLength = "2"
-                maxLength = "200"
-                placeholder="О себе"
-                required />
-              <span className="popup__input-error desc-profile-error"/>
-            </li>
-          </ul>
-            <button
-              type="submit"
-              className="popup__submit-button popup__submit-button_edit">Сохранить
-            </button>
-        </PopupWithForm>
+        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
         <PopupWithForm
           name = "popup_edit-avatar"
           title = "Обновить аватар"
