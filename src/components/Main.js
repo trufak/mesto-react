@@ -11,8 +11,6 @@ function Main(props) {
   //Hookes
   //Подписка на контекст с данными пользователя
   const currentUser = React.useContext(CurrentUserContext);
-
-
   //Загрузка карточек
   React.useEffect(()=>{
     api.getInitialCards()
@@ -22,6 +20,21 @@ function Main(props) {
       console.log(err);
     });
   },[]);
+
+  //Methods
+  function handleCardLike(card) {
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    api.changeLikeCardStatus(card._id, !isLiked)
+    .then((newCard) => {
+        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+    });
+  }
+  function handleCardDelete(card) {
+    api.deleteCard(card._id)
+    .then(()=>{
+      setCards(state=>state.map((c,i,arr)=>c._id === card._id && arr.splice(i,i)))
+    })
+  }
 
   return (
     <main>
@@ -49,7 +62,11 @@ function Main(props) {
         <ul className="elements">
           {cards.map(card=>{
             return (
-              <Card key={card._id} card={card} onCardClick={props.onCardClick}/>)
+              <Card key={card._id}
+                card={card}
+                onCardClick={props.onCardClick}
+                onCardLike={handleCardLike}
+                onCardDelete={handleCardDelete}/>)
           })}
         </ul>
       </section>

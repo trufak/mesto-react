@@ -50,13 +50,22 @@ class Api {
     return this._fetch(`/cards/${cardId}`, 'DELETE');
   }
   //Лайк карточки
-  addLikeCard (cardId) {
+  _addLikeCard (cardId) {
     return this._fetch(`/cards/${cardId}/likes`, 'PUT');
   }
   //Удаление лайка карточки
-  removeLikeCard (cardId) {
+  _removeLikeCard (cardId) {
     return this._fetch(`/cards/${cardId}/likes`, 'DELETE');
   }
+  //Изменение лайка карточки
+  changeLikeCardStatus(cardId, isLiked) {
+    isLiked
+    ? _removeLikeCard(cardId)
+    : _addLikeCard (cardId);
+  }
+
+
+
   //Изменить аватар
   changeAvatar (link) {
     return this._fetch('/users/me/avatar','PATCH', JSON.stringify({ avatar: link }));
