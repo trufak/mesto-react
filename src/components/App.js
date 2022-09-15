@@ -7,6 +7,7 @@ import EditProfilePopup from './EditProfilePopup';
 import ImagePopup from './ImagePopup';
 import api from '../utils/api';
 import {CurrentUserContext} from '../contexts/CurrentUserContext';
+import EditAvatarPopup from './EditAvatarPopup';
 
 function App() {
   //States
@@ -53,6 +54,15 @@ function App() {
     .catch(err=>console.log(err));
   };
 
+  const handleUpdateAvatar = (link) => {
+    api.changeAvatar(link)
+    .then(userInfo => {
+      setCurrentUser(userInfo);
+      closeAllPopups();
+    })
+    .catch(err=>console.log(err));
+  };
+
   const closeAllPopups = (e) => {
     if ((e && (e.target.classList.contains('popup') || e.target.classList.contains('close-button')))
     || !e)
@@ -85,28 +95,10 @@ function App() {
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
           onUpdateUser={handleUpdateUser} />
-        <PopupWithForm
-          name = "popup_edit-avatar"
-          title = "Обновить аватар"
-          isOpen = {isEditAvatarPopupOpen}
-          onClose = {closeAllPopups}>
-          <ul className="popup__inputs">
-            <li>
-              <input
-                className="popup__input popup__input_link-avatar"
-                id="link-avatar"
-                name = "link"
-                type="url"
-                placeholder="Ссылка на изображение"
-                required />
-              <span className="popup__input-error link-avatar-error"/>
-            </li>
-          </ul>
-          <button
-            type="submit"
-            className="popup__submit-button popup__submit-button_edit">Сохранить
-          </button>
-        </PopupWithForm>
+        <EditAvatarPopup
+          isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups}
+          onUpdateAvatar={handleUpdateAvatar} />
         <PopupWithForm
           name = "popup_add-card"
           title = "Новое место"
