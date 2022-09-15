@@ -44,8 +44,18 @@ function App() {
     setIsCardPopupOpen(true);
   };
 
+  const handleUpdateUser = (userData) => {
+    api.patchUserInfo(userData.name, userData.about)
+    .then(userInfo => {
+      setCurrentUser(userInfo);
+      closeAllPopups();
+    })
+    .catch(err=>console.log(err));
+  };
+
   const closeAllPopups = (e) => {
-    if (e.target.classList.contains('popup') || e.target.classList.contains('close-button'))
+    if ((e && (e.target.classList.contains('popup') || e.target.classList.contains('close-button')))
+    || !e)
     {
       isEditAvatarPopupOpen && setIsEditAvatarPopupOpen(false);
       isEditProfilePopupOpen && setIsEditProfilePopupOpen(false);
@@ -71,7 +81,10 @@ function App() {
           card = {selectedCard}
           onClose = {closeAllPopups}
           isOpen = {isCardPopupOpen}/>
-        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
+        <EditProfilePopup
+          isOpen={isEditProfilePopupOpen}
+          onClose={closeAllPopups}
+          onUpdateUser={handleUpdateUser} />
         <PopupWithForm
           name = "popup_edit-avatar"
           title = "Обновить аватар"

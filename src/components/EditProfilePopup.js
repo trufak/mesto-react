@@ -15,23 +15,30 @@ useEffect (()=>{
   setDescription(currentUser.about);
 },[currentUser]);
 
-
-
-
 const handleChangeName = (e) => {
   setName(e.target.value);
-}
+};
 
 const handleChangeDescription = (e) => {
   setDescription(e.target.value);
+};
+
+const handleSubmit = (e) => {
+  e.preventDefault();
+  props.onUpdateUser({
+    name: name,
+    about: description,
+  });
 }
+
 
 return (
   <PopupWithForm
   name = "popup_edit-profile"
   title = "Редактировать профиль"
   isOpen = {props.isOpen}
-  onClose = {props.onClose}>
+  onClose = {props.onClose}
+  onSubmit={handleSubmit}>
   <ul className="popup__inputs">
     <li>
       <input
