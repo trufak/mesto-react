@@ -1,12 +1,19 @@
 import PopupWithForm from './PopupWithForm';
-import {useRef} from 'react';
+import {useRef, useState, useEffect} from 'react';
 
 function EditAvatarPopup (props) {
+
+  const [textButton, setTextButton] = useState('Сохранить');
+
+  useEffect (()=>{
+    props.isOpen && setTextButton('Сохранить');
+  },[props.isOpen]);
 
   const avatarRef = useRef();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setTextButton('Сохранение...');
     props.onUpdateAvatar(avatarRef.current.value);
     avatarRef.current.value = '';
   }
@@ -33,7 +40,7 @@ function EditAvatarPopup (props) {
       </ul>
       <button
         type="submit"
-        className="popup__submit-button popup__submit-button_edit">Сохранить
+        className="popup__submit-button popup__submit-button_edit">{textButton}
       </button>
     </PopupWithForm>
   );
