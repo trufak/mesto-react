@@ -1,10 +1,17 @@
 import PopupWithForm from './PopupWithForm';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 
 function AddPlacePopup (props) {
 
   const [nameCard, setNameCard] = useState('');
   const [linkCard, setLinkCard] = useState('');
+  const [textButton, setTextButton] = useState('Создать');
+
+  useEffect (()=>{
+    props.isOpen && setTextButton('Создать');
+    setNameCard('');
+    setLinkCard('');
+  },[props.isOpen]);
 
   const handleChangeNameCard = (e) => {
     setNameCard(e.target.value);
@@ -16,9 +23,8 @@ function AddPlacePopup (props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setTextButton('Создание...');
     props.onAddPlace(nameCard, linkCard);
-    setNameCard('');
-    setLinkCard('');
   }
 
   return (
@@ -57,7 +63,7 @@ function AddPlacePopup (props) {
       </ul>
       <button
         type="submit"
-        className="popup__submit-button popup__submit-button_add">Создать
+        className="popup__submit-button popup__submit-button_add">{textButton}
       </button>
     </PopupWithForm>
   );

@@ -23,7 +23,7 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
 
   //Hookes
-  //Действия при монитровании
+  //Запрос данных о пользователе и карточек при монтировании
   React.useEffect(()=>{
     Promise.all([
       api.getUserInfo(),
