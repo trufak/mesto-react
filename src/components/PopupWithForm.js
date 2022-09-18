@@ -1,20 +1,55 @@
-function PopupWithForm (props) {
+import FormValidator from './FormValidator';
+import formValidSetting from '../utils/formValidSetting';
+import { useRef, useEffect, useState } from 'react';
+
+function PopupWithForm({
+  isOpen,
+  onClose,
+  onSubmit,
+  name,
+  title,
+  buttonClassName,
+  textButton,
+  children,
+}) {
+
+  const formRef = useRef();
+  const [formValidator] = useState(new FormValidator(formValidSetting));
+
+  useEffect(()=>{
+    formValidator.enableValidation(formRef.current);
+  },[]);
+
+  useEffect(()=>{
+    isOpen && formValidator.clearErrors();
+  },[isOpen]);
+
   return (
     <div
-      className= {`popup ${props.name} ${props.isOpen && 'popup_opened'}`}
-      onClick={props.onClose}>
+      className={`popup ${name} ${isOpen && "popup_opened"}`}
+      onClick={onClose}
+    >
       <div className="popup__container">
         <button
           type="button"
           className="close-button close-button_popup"
-          aria-label="Закрыть"/>
-        <h3 className="popup__title">{props.title}</h3>
+          aria-label="Закрыть"
+        />
+        <h3 className="popup__title">{title}</h3>
         <form
-          name={props.name}
+          ref={formRef}
+          name={name}
           className="popup__form"
           noValidate
-          onSubmit={props.onSubmit}
-          >{props.children}
+          onSubmit={onSubmit}
+        >
+          {children}
+          <button
+            type="submit"
+            className={`popup__submit-button ${buttonClassName}`}
+          >
+            {textButton}
+          </button>
         </form>
       </div>
     </div>

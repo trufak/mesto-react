@@ -1,30 +1,30 @@
-import PopupWithConfirmation from "./PopupWithConfirmation";
-import {useEffect, useState} from "react";
+import PopupWithForm from "./PopupWithForm";
+import { useEffect, useState } from "react";
 
-function DeleteCardPopup (props) {
+function DeleteCardPopup({ isOpen, onSubmit, onClose }) {
+  const [textButton, setTextButton] = useState("Да");
 
-  const [textButton, setTextButton] = useState('Да');
-
-  useEffect (()=>{
-    props.isOpen && setTextButton('Да');
-  },[props.isOpen]);
+  useEffect(() => {
+    isOpen && setTextButton("Да");
+  }, [isOpen]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setTextButton('Удаление...');
-    props.onSubmit();
+    setTextButton("Удаление...");
+    onSubmit();
   };
 
   return (
-    <PopupWithConfirmation
-    name = "popup_delete-card"
-    title = "Вы уверены?"
-    isOpen = {props.isOpen}
-    onClose = {props.onClose}
-    onSubmit={handleSubmit}
-    buttonClassName = 'popup__submit-button_delete'
-    buttonText={textButton} />
-  )
+    <PopupWithForm
+      name="popup_delete-card"
+      title="Вы уверены?"
+      isOpen={isOpen}
+      onClose={onClose}
+      onSubmit={handleSubmit}
+      buttonClassName="popup__submit-button_delete"
+      textButton={textButton}
+    />
+  );
 }
 
 export default DeleteCardPopup;
