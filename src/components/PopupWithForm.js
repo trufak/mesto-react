@@ -1,4 +1,4 @@
-import FormValidator from './FormValidator';
+import FormValidator from '../utils/FormValidator';
 import formValidSetting from '../utils/formValidSetting';
 import { useRef, useEffect, useState } from 'react';
 
